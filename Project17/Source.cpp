@@ -1,9 +1,11 @@
 #include <iostream>
 #include "MyArray.h"
+#include"Exception.h"
 using namespace std;
 
 int main()
 {
+	setlocale(0, "ru");
 	MyArray<int> arr(10);
 	arr.Show();
 	cout<<arr.GetUpperBound();
@@ -32,3 +34,4 @@ int main()
 	cout << endl << endl;
 	system("pause");
 }
+

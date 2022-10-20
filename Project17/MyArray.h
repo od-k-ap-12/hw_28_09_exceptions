@@ -1,5 +1,6 @@
 #pragma once
 #include<iostream>
+#include "Exception.h"
 using namespace std;
 
 template<class T = int>
@@ -101,10 +102,19 @@ MyArray<T>::MyArray()
 template<class T>
 MyArray<T>::MyArray(int s)
 {
-	size = s;
-	capacity = s;
-	arr = new T[size]{ 0 };
-	grow = 1;
+	try {
+		if(s<1){
+			throw new InvalidArraySize("Недопустимый размер массива");
+		}
+		size = s;
+		capacity = s;
+		arr = new T[size]{ 0 };
+		grow = 1;
+	}
+	catch (Base* b)
+	{
+		b->Print();
+	}
 }
 
 template<class T>
@@ -261,6 +271,15 @@ inline T** MyArray<T>::GetData()
 template<class T>
 inline void MyArray<T>::InsertAt(int index, T value)
 {
+	try {
+		if (index > size - 1 || index < 0) {
+			throw new InvalidIndex("Выход за пределы массива");
+		}
+	}
+	catch (Base* b)
+	{
+		b->Print();
+	}
 	T* temparr = new T[size + 1]{0};
 
 	for (int i = 0; i < index; i++)
@@ -279,6 +298,15 @@ inline void MyArray<T>::InsertAt(int index, T value)
 template<class T>
 inline void MyArray<T>::RemoveAt(int index)
 {
+	try {
+		if (index > size - 1 || index < 0) {
+			throw new InvalidIndex("Выход за пределы массива");
+		}
+	}
+	catch (Base* b)
+	{
+		b->Print();
+	}
 	if (index < 0 || index >= size)
 	{
 		return;
